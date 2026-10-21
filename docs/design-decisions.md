@@ -1,6 +1,6 @@
 # Design Decisions — Campus Access
 
-> Status: Decisions 1–5 are confirmed by the project owner; remaining decisions are proposals pending review.
+> Status: Decisions 1–6 are confirmed by the project owner; remaining decisions are proposals pending review.
 
 ## 1. Request record
 
@@ -75,7 +75,10 @@ There are no other transitions. `returned` is final.
 
 **Confirmed decision:** If `data/requests.json` does not exist, the application starts with an empty request collection. The directory and file can be created when the application first saves data. This missing-file case is distinct from malformed JSON: malformed data must produce a clear error and must not be silently treated as an empty collection.
 
-## 11. Open questions to verify
+## 11. Input whitespace
+
+**Confirmed decision:** Trim surrounding whitespace from fellow IDs and approver IDs before validating and storing them. Reject values that are empty after trimming, and reject values of the wrong Python type instead of converting them. For example, `" F001 "` is stored as `"F001"`, while a whitespace-only value is rejected. Card types and request IDs will be validated against their allowed formats rather than silently transformed into different values.
+
+## 12. Open questions to verify
 
 - Confirm whether extra keys in a JSON record should be rejected. Proposal: reject them to keep the schema exact.
-- Confirm whether surrounding whitespace in a nonblank fellow ID or approver ID should be preserved or stripped. Proposal: reject blank-after-strip values and store the trimmed value.
