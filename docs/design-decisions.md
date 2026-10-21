@@ -1,6 +1,6 @@
 # Design Decisions — Campus Access
 
-> Status: Decisions 1–3 are confirmed by the project owner; remaining decisions are proposals pending review.
+> Status: Decisions 1–4 are confirmed by the project owner; remaining decisions are proposals pending review.
 
 ## 1. Request record
 
@@ -67,8 +67,12 @@ Only these transitions are legal:
 
 There are no other transitions. `returned` is final.
 
-## 9. Open questions to verify
+## 9. Default storage location
+
+**Confirmed decision:** The default JSON persistence file is `data/requests.json`, relative to the project directory. The application should create the `data` directory when needed and handle a missing file safely. Filesystem and JSON errors must be reported clearly. Saving should be implemented so that a failed write does not truncate or replace an existing valid file. Runtime data containing real personal information should not be committed to Git.
+
+## 10. Open questions to verify
 
 - Confirm whether extra keys in a JSON record should be rejected. Proposal: reject them to keep the schema exact.
 - Confirm whether surrounding whitespace in a nonblank fellow ID or approver ID should be preserved or stripped. Proposal: reject blank-after-strip values and store the trimmed value.
-- Confirm the chosen default JSON file path and how the CLI will communicate save/load errors.
+- Confirm the exact behavior for first-run startup when `data/requests.json` does not exist.
