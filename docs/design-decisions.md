@@ -1,6 +1,6 @@
 # Design Decisions — Campus Access
 
-> Status: initial proposal for review. Confirm these decisions before implementation and record any changes here.
+> Status: Decision 1 is confirmed by the project owner; remaining decisions are proposals pending review.
 
 ## 1. Request record
 
@@ -18,9 +18,11 @@ Each request is a dictionary with exactly these keys:
 
 Allowed card types are `visitor`, `student`, and `staff`. Allowed statuses are `requested`, `approved`, `issued`, and `returned`.
 
-## 2. Return value for create_request
+## 2. Return values for create_request and get_request
 
-`create_request(fellow_id, card_type)` will return a copy of the newly created record. Returning a copy helps prevent callers from accidentally changing the manager's internal record without using a validated operation.
+`create_request(fellow_id, card_type)` will return a copy of the newly created record.
+
+**Confirmed decision:** `get_request(request_id)` will also return a copy of the stored record, not the internal dictionary. This prevents callers from changing internal state directly and bypassing validation or workflow rules. Callers must use the manager's public operations to make changes.
 
 ## 3. Invalid-input behavior
 
