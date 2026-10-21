@@ -7,7 +7,8 @@ from typing import Any
 
 import storage
 
-DEFAULT_STORAGE_PATH = Path("data") / "requests.json"
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_STORAGE_PATH = PROJECT_ROOT / "data" / "requests.json"
 _REQUEST_ID_PATTERN = re.compile(r"A[0-9]{3,}\Z")
 
 
