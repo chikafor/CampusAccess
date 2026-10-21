@@ -1,6 +1,6 @@
 # Design Decisions — Campus Access
 
-> Status: Decision 1 is confirmed by the project owner; remaining decisions are proposals pending review.
+> Status: Decisions 1 and 2 are confirmed by the project owner; remaining decisions are proposals pending review.
 
 ## 1. Request record
 
@@ -49,7 +49,7 @@ The exact module ownership and constructor signatures will be confirmed before i
 
 ## 6. Invalid JSON or invalid saved data
 
-Loading will parse and validate the complete file into temporary data first. Only after all records pass validation will the manager replace its current in-memory data. Malformed JSON, missing or unexpected keys, invalid types or values, invalid IDs/statuses, and duplicate IDs will raise a clear error. A failed load must preserve existing in-memory records.
+**Confirmed decision:** Loading will parse and validate the complete file into temporary data first. Only after all records pass validation will the manager replace its current in-memory data. Malformed JSON, missing or unexpected keys, invalid types or values, invalid IDs/statuses, and duplicate IDs will raise a clear error. A failed load must preserve existing in-memory records exactly as they were.
 
 Saving will serialize the current records and report filesystem errors to the caller. Tests will verify that a failed save does not truncate or replace a valid destination file.
 
