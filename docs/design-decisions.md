@@ -1,6 +1,6 @@
 # Design Decisions — Campus Access
 
-> Status: Decisions 1 and 2 are confirmed by the project owner; remaining decisions are proposals pending review.
+> Status: Decisions 1–3 are confirmed by the project owner; remaining decisions are proposals pending review.
 
 ## 1. Request record
 
@@ -30,7 +30,7 @@ Public operations will raise `ValueError` for invalid values, unknown request ID
 
 ## 4. ID generation
 
-The request manager will generate IDs in the form `A001`, `A002`, `A003`, and so on. After loading valid records, it will derive the next number from the highest existing numeric suffix so IDs remain unique across restarts. ID parsing will use ASCII digits only.
+**Confirmed decision:** Request IDs use the form `A001`, `A002`, `A003`, and so on. After loading valid records, the manager derives the next number from the highest existing numeric suffix rather than filling gaps. For example, if the existing IDs are `A001`, `A002`, and `A005`, the next ID is `A006`. This avoids reusing an ID simply because a lower number is missing. ID parsing will use ASCII digits only.
 
 ## 5. Storage ownership and module contract
 
